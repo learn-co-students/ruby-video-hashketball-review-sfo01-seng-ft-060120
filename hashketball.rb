@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require "pry"
 
 def game_hash
   {
@@ -128,3 +129,110 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(player_name)
+  game_hash.each do |team, team_details|
+    team_details.each do |detail_type, team_stats|
+      if team_stats.is_a?(Array)
+        team_stats.each do |player_stats|
+          if player_stats.is_a?(Hash)
+            player_stats.each do |player_stat_type, player_detail|
+              if player_detail == player_name
+                return player_stats[:points]
+              end 
+            end 
+          end 
+        end 
+      end 
+    end 
+  end 
+end 
+
+def shoe_size(player_name)
+  game_hash.each do |team, team_details|
+    team_details.each do |detail_type, team_stats|
+      if team_stats.is_a?(Array)
+        team_stats.each do |player_stats|
+          if player_stats.is_a?(Hash)
+            player_stats.each do |player_stat_type, player_detail|
+              if player_detail == player_name
+                return player_stats[:shoe]
+              end 
+            end 
+          end 
+        end 
+      end 
+    end 
+  end 
+end 
+
+def team_colors(team_name)
+  game_hash.each do |team, team_details|
+    team_details.each do |detail_type, team_stats|
+      if team_stats == team_name
+        return team_details[:colors]
+      end 
+    end 
+  end 
+end 
+
+def team_names
+  all_teams = []
+  game_hash.each do |team, team_detail|
+    all_teams.push(team_detail[:team_name])
+  end 
+  all_teams
+end 
+
+def player_numbers(team_name)
+  all_player_numbers = []
+  game_hash.each do |team, team_details|
+    team_details.each do |detail_type, team_stats|
+      if team_stats.is_a?(Array)
+        team_stats.each do |player_stats|
+          if player_stats.is_a?(Hash)
+            if team_details[:team_name] == team_name
+              all_player_numbers.push(player_stats[:number])
+            end 
+          end 
+        end 
+      end 
+    end 
+  end
+  all_player_numbers
+end 
+
+def player_stats(player_name)
+  game_hash.each do |team, team_details|
+    team_details.each do |detail_type, team_stats|
+      if team_stats.is_a?(Array)
+        team_stats.each do |player_stats|
+          if player_stats.is_a?(Hash)
+            if player_stats[:player_name] == player_name
+              return player_stats
+            end 
+          end 
+        end 
+      end 
+    end 
+  end 
+end 
+
+def big_shoe_rebounds
+  big_shoe_player = {}
+  big_shoe_size = 0
+    game_hash.each do |team, team_details|
+    team_details.each do |detail_type, team_stats|
+      if team_stats.is_a?(Array)
+        team_stats.each do |player_stats|
+          if player_stats.is_a?(Hash)
+            if player_stats[:shoe] > big_shoe_size
+              big_shoe_size = player_stats[:shoe]
+              big_shoe_player = player_stats
+            end 
+          end 
+        end 
+      end 
+    end 
+  end 
+  big_shoe_player[:rebounds]
+end 
